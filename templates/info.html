@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title>AIr Canvas</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="../static/css/style.css">
+ 
+     <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script>
+ 
+     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+      <link rel="shortcut icon" type="image/x-icon" href="img/favicon.ico">
+      <script>
+        $('.flip-container .flipper').click(function(){
+          $(this).css('transform, rotateY(180deg)');
+      })
+    </script>
+</head>
+
+<body>
+
+    <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
+        <div id="top" class="container-fluid">
+          <a class="navbar-brand" href="#"><img src="..\static\img\air_canvas_small.png" alt="small air canvas"></a>
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+      
+          <div class="collapse navbar-collapse" id="navbarResponsive">
+            <ul class="navbar-nav ml-auto">
+              <li class="nav-item">
+                <a class="nav-link" href="#objective">Objective</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#introduction">Introduction</a>
+              </li>
+             
+             <li class="nav-item">
+                <a class="nav-link" href="#design">OpenCV</a>
+              </li>
+              
+              
+      
+              <li class="nav-item">
+                <a class="nav-link" href="#results">Results</a>
+              </li>
+      
+            
+              <li class="nav-item">
+                <a class="nav-link" href="#conclusion">Conclusions</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#future">Future Work</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#appendix">Appendix</a>
+              </li>
+            </ul>
+          </div>
+      
+        </div>
+      
+      </nav>
+
+
+    <div class="container-fluid anchor" id="objective">
+
+        <div class="row jumbotron" >
+            <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 col-xl-10" >
+            <h1 >Objective</h1> 
+            <p>To create a simple prototype for a drawing tool that uses hand gesture recognition software to paint on a PiTFT screen. Core objectives include:</p>
+            <ul>
+              <li>Using OpenCV to recognize the pointer finger.</li>
+              <li>Mapping coordinates extracted from hand recognition software to PyGame to produce a drawing. 
+      </li>
+              <li>Implementing additional features such as color change, size change, and both on-screen and physical buttons.</li>
+            </ul> 
+            </div>
+        </div>
+      
+      
+    </div>
+    
+    <div class="container-fluid padding" id="introduction">
+        <div class="row welcome">
+          
+          <div class="col-md-12">
+            <h1>Introduction</h1>
+            <br>
+             <p>Air Canvas is a hands-free digital drawing canvas that utilizes a Raspberry Pi, a PiCamera, and OpenCV to recognize and map hand gestures onto a PiTFT screen. The user’s “brush” can be modified in size and color by using built-in buttons. The direction of the brush is controlled completely using open source OpenCV software and modified to map the pointer finger onto the screen using Pygame following a calibration screen to measure and record the color of the user’s hand. The idea for Air Canvas was a result of our interest in digital drawing and smart photo recognition software.
+          </p>
+        </div>
+    </div>
+      <div class="container-fluid padding" id="OpenCV">
+        <div class="row welcome">
+          <div class="col-md-12">
+          
+          
+        <h2>OpenCV</h2>
+          <p>We began our project by searching for open source hand gesture recognition software that utilized OpenCV in combination with Python. In doing so, our project’s design changed as we discovered different image processing algorithms. Our primitive implementation sought to use hand gestures to control our color and size variables. To do so, we first set out to create an image mask that would separate the hand from the background. With some trial and error using OpenCV, we successfully captured an image, Gaussian blurred it, and applied a binary mask to starkly contrast the hand shape from the background. This is a method obtained from Izane’s Finger Detection tutorial1, chosen because of its use of convexity detection; in other words, determining the valleys between the fingers. However, we discovered that the camera’s sensitivity to the lab room’s lighting made this a difficult endeavor, and we often encountered extraneous silhouettes in our processed image. </p>
+   
+          <p>We then discovered a suitable finger detection algorithm by Amar Pandey2 , which first takes a color histogram of the palm to adapt to changing light conditions. Using a grid of 9 small rectangles, pixel data from each rectangular region is used to create a color histogram. The current image is captured and processed when the user presses Z on the keyboard. The histogram is then used in a built-in OpenCV function, <code> cv2.calcBackProject </code>, to separate the features in an image. In this case, the program is separating all pixels containing the appropriate colors from the rest of the frame. The image is then smoothed via thresholding and filtering, resulting in a frame that contains the hand alone. From here, the contour of the image is found. According to the OpenCV website, contours are curves which join continuous points of the same color or intensity, and are used for shape analysis and detection3. From the contour, Pandey’s algorithm detects convexity defects, which indicate where the fingers might be. Using built-in contour functions, the algorithm returns the center of the largest contour found as well as the farthest point along the contour from that center point.  This proved to be very handy because with some abstraction, we could extract the farthest point coordinate to map to our drawing functions. The finger tracking algorithm can be seen in Figure 2.</p>
+   
+           <br>
+      
+          <!-- <figure class="figure text-center">
+             <img src="img/predraw2_livefeed.png" alt="live feed" style="width:40%;">
+           <figcaption class="figure-caption">Figure 2: The OpenCV algorithm displays a trail of yellow dots tracking history of farthest points from the center of the hand, namely the fingertip. The current farthest point is highlighted with a red ring. The center of the hand is indicated by the pink dot. 
+           </figcaption>
+         </figure> --> 
+          <br> 
+           <br>
+          <p>We abstracted a function that would calculate the farthest point (representing the index fingertip when held up) and pass it along to our PyGame drawing functions. In doing so, we made some modifications and adaptations. First, we had to map proportionately from the live camera feed to the PiTFT screen, which was exactly half the size of the feed. Next, to eliminate the use of the keyboard, we mapped the histogram trigger to an on-screen PiTFT button. Furthermore, due to the abundance of natural-toned colors in our lab room, we decided to use blue nitrile gloves during our work for a stronger contrast with the background. The bold color helped the color histogram better determine the location of the user’s hand. </p>
+            </div>
+        </div>
+    </div>
+   <br>
+
+   <div class="container-fluid padding" id="results">
+    <div class="row welcome">
+      
+      <div class="col-md-12">
+        <h1>Results</h1>
+         <p>Overall, we achieved the goals we set out to accomplish and learned a considerable amount about OpenCV, multicore processing, and PyGame programming in the process. In our debugging process, we also encountered some problems involving the PiTFT touchscreen, which we were able to solve by investigating the operating system updates we’d installed during the process of our lab. Our demonstration of Air Canvas is shown in the video below.</p>
+  
+  <br>
+  <div>
+    <h2>OpenCV Trial and Error</h2>
+    <p>Our first and foremost challenge was understanding OpenCV. At first, while experimenting with various open source programs, we were using an older version of OpenCV. To our dismay, heavy image processing dropped our frame rate to around 4 frames per second, even when we only applied a few basic filters, and the lag on the camera feed was unbearably slow. Additionally, our desired open source program by Pandy was only compatible with the newest version of OpenCV. We decided to upgrade our OpenCV, and doing so increased our frame rate dramatically. While our program still showed considerable lag, it was fast enough to be considered functional. </p>
+    </div>
+<br>
+        <h1>Conclusions</h1>
+         <p>We consider our project to be an overall success! With Air Canvas, we have achieved a hands-free drawing program that uses OpenCV to detect the user’s pointer finger. Colorful lines can be drawn wherever the user desires and the brush can even be modified. It is truly like drawing in the air! </p>
+         <p>Of course, Air Canvas has many flaws that may be interesting areas of research in the future. The first is the issue of frame rate: image processing slowed down the camera feed and produced a cumbersome lag that impedes on the usability of the program. It would be best optimized with multicore functionality, which we attempted in this project. If the timing problems with queueing data between processes can be managed such that frame information is passed in order, perhaps Air Canvas can be upgraded to run authentically in real time. Moreover, we relied on open source OpenCV code for hand recognition, which had its own issues that we worked hard to circumvent. </p>
+     
+        <div>
+  
+          <br>
+         <h2>Acknowledgements</h2>
+         <p>We appreciate the time and effort that Professor Joe Skovira and our TAs (Xitang Zhao, Yixiao Zhang, Yazhi Fan, and Rohit Krishnakumar) have put into helping our project suceed! Without their support, this project would not have been possible.</p>
+       </div>
+  
+  
+      </div>
+      
+    </div>
+  </div>
+  <div class="container-fluid padding" id="future">
+    <div class="row welcome">
+      
+      <div class="col-md-12">
+        <h1>Future Work</h1>
+        <p>Given more time to work on this project, we would improve hand contour recognition, explore our original Air Canvas goals, and try to understand the multicore module. </p>
+        <p>To enhance hand gesture tracking, we would have to delve more into OpenCV. There are many different methods of contour analysis, but in this particular algorithm, it may be worthwhile to take a look at the color histogram used to create the contours in question. Furthermore, we could experiment with different interpolation methods. PyGame includes a line drawing method (pygame.draw.line()) that could prove useful in producing smoother, cleaner lines. On the same vein, implementing a variety of brush shapes, textures, and even an eraser would make Air Canvas more robust as a drawing program. Allowing the user to save their final work or watch their drawing process as a playback animation could also be unique features that resemble real creativity software. Perhaps there would even be a way to connect Air Canvas to actual digital drawing programs such as Adobe Photoshop, Clip Studio Paint, or GIMP! Finally, we could make significant strides by figuring out how multicore processing works with in-order information processing.
+  </p>
+      </div>
+       
+      
+    </div>
+  </div>
+
+  <div class="container-fluid padding" id="appendix">
+    <div class="row welcome">
+
+      <div class="col-md-12">
+        <h1>Appendix</h1>
+      </div>
+    <br>
+      <div>
+        <h2>Project Members</h2>
+      </div>
+  </div>
+
+        <div class="flip-container">
+            <div class="flipper">
+                <div class="front artist-1">
+              <!-- front content -->
+                </div>
+              <div class="back">
+            <h5>Pankag Yadav: BE-EXTC 43</h5>
+           <p> The idea for using OpenCV was driven by his interest in the topic!</p>
+          <ul>
+            <li>Project conception and design</li> 
+          </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-container">
+        <div class="flipper">
+          <div class="front artist-1">
+            <!-- front content -->
+          </div>
+          <div class="back">
+            <h5>Satyam Thakur: BE-EXTC 64</h5>
+          <p>Human Computer Interaction Using Hand gesture recognition</p>
+           <ul>
+            <li>Connecting OpenCV information to visualize, and most other software implementation</li>
+          </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-container">
+        <div class="flipper">
+          <div class="front artist-1">
+            <!-- front content -->
+          </div>
+        <div class="back">
+            <h5>Bhavesh Sondgar: BE-EXTC 70</h5>
+            <p>Air Canvas was inspired by her love of digital art!</p>
+             <ul>
+                <li>Writing additional functionality for colors and size, and most other software implementation</li>
+              <li>Project conception and website implementation</li>
+             </ul>
+          </div>
+        </div>
+      </div>
+    
+      
+    </div>
+  
+
+   
+
+
+</body>
+
+</html>

@@ -1,0 +1,14 @@
+#handwriting{
+    width: 50%;
+    margin-top: 25%;
+    justify-content: center;
+    display: flex;
+    margin-left: 25%;
+}
+.fingercounter{
+    width: 50%;
+    margin-top: 25%;
+    justify-content: center;
+    display: flex;
+    margin-left: 25%;   
+}
