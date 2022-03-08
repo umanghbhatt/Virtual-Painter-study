@@ -1,5 +1,4 @@
 from flask import Flask,render_template,request,redirect,Response
-from datetime import datetime
 from Virtual import main
 from Virtual import FingerCounting
 import cv2
