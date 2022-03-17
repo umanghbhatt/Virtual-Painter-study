@@ -1,10 +1,12 @@
-﻿absl-py==1.0.0
+absl-py==1.0.0
 attrs==21.4.0
 click==8.0.4
 colorama==0.4.4
 cycler==0.11.0
 Flask==2.0.3
+Flask-SQLAlchemy==2.5.1
 fonttools==4.29.1
+greenlet==1.1.2
 gunicorn==20.1.0
 itsdangerous==2.1.0
 Jinja2==3.0.3
@@ -14,11 +16,12 @@ matplotlib==3.5.1
 mediapipe==0.8.7.3
 numpy==1.22.2
 opencv-contrib-python==4.5.5.62
-opencv-python==4.5.5.62
+opencv-python-headless==4.5.5.64
 packaging==21.3
 Pillow==9.0.1
 protobuf==3.19.4
 pyparsing==3.0.7
 python-dateutil==2.8.2
+SQLAlchemy==1.4.31
 six==1.16.0
 Werkzeug==2.0.3
