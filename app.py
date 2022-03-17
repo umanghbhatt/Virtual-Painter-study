@@ -39,4 +39,4 @@ def live():
 def liveCount():
     return render_template('countFinger.html')
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
