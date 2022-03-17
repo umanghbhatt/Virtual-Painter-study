@@ -25,5 +25,4 @@ python-dateutil==2.8.2
 SQLAlchemy==1.4.31
 six==1.16.0
 Werkzeug==2.0.3
-freeglut3-dev
-libgtk2.0-dev
+PyOpenGl==3.1.6
