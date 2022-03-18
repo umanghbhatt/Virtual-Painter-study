@@ -16,7 +16,7 @@ class GetVirtualScreen:
         detector = handDetector(detectionCon=0.6)
         xp, yp = 0, 0
         imgCanvas = np.zeros((hCam, wCam, 3), np.uint8)
-        folderPath = "..\Virtual\Header"
+        folderPath = ".\Virtual\Header"
         myList = os.listdir(folderPath)
         print(myList)
 
